@@ -6,7 +6,7 @@ class Quantity
     static readonly int MIN = 1;
     static readonly int MAX = 100;
 
-    int value;
+    public int value { get; }
 
     public Quantity(int value)
     {
@@ -22,7 +22,7 @@ class Quantity
         return added <= MAX;
     }
 
-    Quantity add(Quantity other)
+    public Quantity add(Quantity other)
     {
         if (!CanAdd(other)) throw new Exception($"不正な値です： {MAX} 超");
         int added = addValue(other);
@@ -47,8 +47,12 @@ class Program
         Quantity value_20 = new Quantity(20);
         Quantity value_10 = new Quantity(10);
 
-        Console.WriteLine(value_100.CanAdd(value_10));
-        Console.WriteLine(value_20.CanAdd(value_10));
+        Console.WriteLine(value_100.CanAdd(value_10)); // 110 --> False
+        Console.WriteLine(value_20.CanAdd(value_10)); // 30 --> True
+
+        var newValue = value_10.add(value_20);
+
+        Console.WriteLine(newValue.value); // 30
 
     }
 }
